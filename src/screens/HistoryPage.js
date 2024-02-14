@@ -1,60 +1,83 @@
 import React from 'react'
-import { StyleSheet, ScrollView, FlatList, SafeAreaView, View, Text, Button } from 'react-native';
+import { StyleSheet, FlatList, SafeAreaView, View, Text, Pressable, Button } from 'react-native'
 
-const HistoryPage = () => {
+import { useSelector, useDispatch } from 'react-redux'
+import { clearHistory, removeFromHistory } from '../redux/features/historySlice'
 
-    const items = [
-        { id: 1, text: 'Item 1'},
-        { id: 2, text: 'Item 2' },
-        { id: 3, text: 'Item 3' },
-        { id: 4, text: 'Item 4' },
-        { id: 5, text: 'Item 5' },
-        { id: 6, text: 'Item 6' },
-        { id: 7, text: 'Item 7' },
-        { id: 8, text: 'Item 8' },
-        { id: 9, text: 'Item 9' }
-        // Add more items here...
-    ];
+const HistoryPage = ({ navigation }) => {
 
-    const renderItem = ({ item }) => (
-        <View style={styles.item}>
-            <Text style={styles.text}>{item.text}</Text>
-        </View>
-    );
+    const { history } = useSelector((state) => state.history)
+    const dispatch = useDispatch()
+
+    const renderItem = ({ item, index }) => {
+
+        const isLastItem = index === history.length - 1
+        return (
+            <View className={`flex flex-row justify-center items-center space-x-0.5 py-2 my-0.5 border-b-0.5 ${isLastItem && "border-b-0"}`}>
+                <View className="basis-1/12">
+                    <Text className="text-xl text-right font-semibold">{index + 1}&#41;</Text>
+                </View>
+                <View className="basis-5/12">
+                    <Text className="text-xl text-right">{item.convertAmount} {item.from} to {item.to}: </Text>
+                </View>
+                <View className="basis-4/12">
+                    <Text className="text-xl font-bold"> {parseFloat(item.convertedAmount.toFixed(3))}</Text>
+                </View>
+                <View className="basis-1/12">
+                    <Pressable onPress={() => dispatch(removeFromHistory(index))} className="bg-red-700 rounded-lg">
+                        <Text className="text-white text-center text-xl">-</Text>
+                    </Pressable>
+                </View>
+            </View>
+        )
+    };
 
     return (
         <SafeAreaView>
             <View className="flex justify-center items-center">
-                <View className="basis-1/6 justify-center">
-                    <Text>basis 1/6</Text>
+                <View className="basis-1/6 w-full justify-center items-center space">
+                    <Text className="text-3xl mt-6">Conversion History</Text>
                 </View>
-                <View className="basis-4/6 justify-start">
-
-                    <ScrollView>
-                        <FlatList
-                            data={items}
-                            renderItem={renderItem}
-                            keyExtractor={(item) => item.id.toString()}
-                            vertical
-                        />
-                    </ScrollView>
+                <View className="basis-4/6 w-full justify-start">
+                    {
+                        history && history.length ?
+                            <FlatList
+                                data={history}
+                                renderItem={renderItem}
+                                keyExtractor={(item, index) => index}
+                                vertical
+                            />
+                            :
+                            <Text className="text-center text-xl text-gray-950 italic mt-10">
+                                No conversion history found!
+                            </Text>
+                    }
                 </View>
-                <View className="basis-1/6 justify-center">
-                    <Text>basis 1/6</Text>
+                <View className="basis-1/6 w-full justify-center items-center">
+                    {
+                        history && history.length ?
+                            <Pressable onPress={() => dispatch(clearHistory())} className="w-80 mt-4 bg-red-700 rounded-lg px-5 py-2.5 me-2 mb-2">
+                                <Text className="text-white text-center text-xl">Clear!</Text>
+                            </Pressable>
+                            :
+                            <Pressable onPress={() => navigation.navigate('Calculation')} className="bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                                <Text className="text-white text-center text-xl">Make a Calculation!</Text>
+                            </Pressable>
+                    }
                 </View>
             </View>
         </SafeAreaView>
     )
 }
 const styles = StyleSheet.create({
-  item: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: 16,
-  },
-  text: {
-    fontSize: 24,
-  },
+    item: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: 16,
+    },
+    text: {
+        fontSize: 24,
+    },
 });
 
 export default HistoryPage;
