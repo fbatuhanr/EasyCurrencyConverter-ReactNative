@@ -17,11 +17,12 @@ const HistoryPage = ({ navigation }) => {
                 <View className="basis-1/12">
                     <Text className="text-xl text-right font-semibold">{index + 1}&#41;</Text>
                 </View>
-                <View className="basis-5/12">
-                    <Text className="text-xl text-right">{item.convertAmount} {item.from} to {item.to}: </Text>
+                <View className="basis-5/12 flex flex-row justify-end items-end">
+                    <Text className="text-base font-semibold">{item.convertAmount}</Text>
+                    <Text className="text-sm tracking-tight"> {item.from} to {item.to}:</Text>
                 </View>
                 <View className="basis-4/12">
-                    <Text className="text-xl font-bold"> {parseFloat(item.convertedAmount.toFixed(3))}</Text>
+                    <Text className="text-xl font-bold"> {parseFloat(item.convertedAmount.toFixed(2))}</Text>
                 </View>
                 <View className="basis-1/12">
                     <Pressable onPress={() => dispatch(removeFromHistory(index))} className="bg-red-700 rounded-lg">
@@ -53,15 +54,15 @@ const HistoryPage = ({ navigation }) => {
                             </Text>
                     }
                 </View>
-                <View className="basis-1/6 w-full justify-center items-center">
+                <View className="basis-1/6 w-full justify-start items-center">
                     {
                         history && history.length ?
                             <Pressable onPress={() => dispatch(clearHistory())} className="w-80 mt-4 bg-red-700 rounded-lg px-5 py-2.5 me-2 mb-2">
-                                <Text className="text-white text-center text-xl">Clear!</Text>
+                                <Text className="text-white text-center text-xl font-semibold">Clear History!</Text>
                             </Pressable>
                             :
                             <Pressable onPress={() => navigation.navigate('Calculation')} className="bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                <Text className="text-white text-center text-xl">Make a Calculation!</Text>
+                                <Text className="text-white text-center text-xl font-semibold">Make a Calculation!</Text>
                             </Pressable>
                     }
                 </View>

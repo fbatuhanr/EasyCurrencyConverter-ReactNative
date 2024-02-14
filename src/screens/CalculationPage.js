@@ -170,8 +170,9 @@ const CalculationPage = () => {
             :
               result &&
               <>
-                <View className="w-80">
-                  <Text className="text-center text-5xl">{parseFloat(result.toFixed(3))}</Text>
+                <View className="w-80 flex flex-row justify-center items-end">
+                  <Text className="text-5xl">{parseFloat(result.toFixed(2))}</Text>
+                  <Text className="text-sm ml-1 mb-2">{toPickerValue}</Text>
                 </View>
                 <View className="w-80">
                   <Pressable onPress={handleClearButton} className="focus:outline-none bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg py-2.5 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
