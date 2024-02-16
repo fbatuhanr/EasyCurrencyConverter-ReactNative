@@ -9,7 +9,7 @@ const StartStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
         <Stack.Screen name="Home" component={HomePage} />
-        <Stack.Screen name="Calculation" component={UserTab} />
+        <Stack.Screen name="CalculationPage" component={UserTab} />
     </Stack.Navigator>
   )
 }

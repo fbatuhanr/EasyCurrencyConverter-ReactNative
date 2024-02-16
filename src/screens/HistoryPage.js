@@ -34,51 +34,39 @@ const HistoryPage = ({ navigation }) => {
     };
 
     return (
-        <SafeAreaView>
-            <View className="flex justify-center items-center">
-                <View className="basis-1/6 w-full justify-center items-center space">
-                    <Text className="text-3xl mt-6">Conversion History</Text>
-                </View>
-                <View className="basis-4/6 w-full justify-start">
-                    {
-                        history && history.length ?
-                            <FlatList
-                                data={history}
-                                renderItem={renderItem}
-                                keyExtractor={(item, index) => index}
-                                vertical
-                            />
-                            :
-                            <Text className="text-center text-xl text-gray-950 italic mt-10">
-                                No conversion history found!
-                            </Text>
-                    }
-                </View>
-                <View className="basis-1/6 w-full justify-start items-center">
-                    {
-                        history && history.length ?
-                            <Pressable onPress={() => dispatch(clearHistory())} className="w-80 mt-4 bg-red-700 rounded-lg px-5 py-2.5 me-2 mb-2">
-                                <Text className="text-white text-center text-xl font-semibold">Clear History!</Text>
-                            </Pressable>
-                            :
-                            <Pressable onPress={() => navigation.navigate('Calculation')} className="bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                                <Text className="text-white text-center text-xl font-semibold">Make a Calculation!</Text>
-                            </Pressable>
-                    }
-                </View>
+        <SafeAreaView className="flex justify-center items-center">
+            <View className="basis-1/6 w-full justify-center items-center">
+                <Text className="text-4xl mt-5">Conversion History</Text>
+            </View>
+            <View className="basis-4/6 w-full justify-start">
+                {
+                    history && history.length ?
+                        <FlatList
+                            data={history}
+                            renderItem={renderItem}
+                            keyExtractor={(item, index) => index}
+                            vertical
+                        />
+                        :
+                        <Text className="text-center text-xl text-gray-950 italic mt-10">
+                            No conversion history found!
+                        </Text>
+                }
+            </View>
+            <View className="basis-1/6 w-full justify-start items-center">
+                {
+                    history && history.length ?
+                        <Pressable onPress={() => dispatch(clearHistory())} className="w-80 mt-4 bg-red-700 rounded-lg px-5 py-2.5 me-2 mb-2">
+                            <Text className="text-white text-center text-xl font-semibold">Clear History!</Text>
+                        </Pressable>
+                        :
+                        <Pressable onPress={() => navigation.navigate('Calculation')} className="bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-10 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                            <Text className="text-white text-center text-xl font-semibold">Make a Calculation!</Text>
+                        </Pressable>
+                }
             </View>
         </SafeAreaView>
     )
 }
-const styles = StyleSheet.create({
-    item: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        padding: 16,
-    },
-    text: {
-        fontSize: 24,
-    },
-});
 
 export default HistoryPage;
