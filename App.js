@@ -1,17 +1,21 @@
 import React from 'react'
+
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
+import { store, persistor } from './src/redux/app/store'
+
 import RootNavigation from './src/navigation/rootNavigation'
 
 import { NativeWindStyleSheet } from "nativewind"
 NativeWindStyleSheet.setOutput({ default: "native" })
 
-import { store } from './src/redux/app/store'
-import { Provider } from 'react-redux'
-
 export default function App() {
 
   return (
     <Provider store={store}>
-      <RootNavigation/>
+      <PersistGate loading={null} persistor={persistor}>
+        <RootNavigation/>
+      </PersistGate>
     </Provider>
   )
 }

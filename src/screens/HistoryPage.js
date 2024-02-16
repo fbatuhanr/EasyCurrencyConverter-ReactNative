@@ -6,7 +6,7 @@ import { clearHistory, removeFromHistory } from '../redux/features/historySlice'
 
 const HistoryPage = ({ navigation }) => {
 
-    const { history } = useSelector((state) => state.history)
+    const history = useSelector((state) => state.history)
     const dispatch = useDispatch()
 
     const renderItem = ({ item, index }) => {

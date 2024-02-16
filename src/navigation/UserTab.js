@@ -10,7 +10,7 @@ import HistoryPage from '../screens/HistoryPage'
 const Tab = createBottomTabNavigator()
 const UserTab = () => {
 
-  const { history } = useSelector((state) => state.history)
+  const history = useSelector((state) => state.history)
 
   return (
     <Tab.Navigator screenOptions={{ headerShown: false }}>
