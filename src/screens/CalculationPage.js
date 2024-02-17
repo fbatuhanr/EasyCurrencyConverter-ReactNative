@@ -45,11 +45,9 @@ const CalculationPage = () => {
 
       const options = { method: 'GET', url: CURRENCY_LIST_API_URL, headers: requestHeaders };
       try {
-        /*
         const response = await axios.request(options);
         const result = response.data.map(i => ({ label: `${i.name} (${i.symbol})`, value: i.symbol }));
-        */
-        const result = dummyData.map(i => ({ label: `${i.name} (${i.symbol})`, value: i.symbol }));
+        // const result = dummyData.map(i => ({ label: `${i.name} (${i.symbol})`, value: i.symbol }));
         setPickerItems(result);
       } catch (error) {
         console.error(error);
